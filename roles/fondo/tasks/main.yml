@@ -1,3 +1,9 @@
+- name: Crear carpeta base de configuración dconf
+  file:
+    path: /etc/dconf/db/local.d
+    state: directory
+    mode: "0755"
+
 - name: Crear carpeta para fondos personalizados
   file:
     path: /usr/share/backgrounds/educaandos
