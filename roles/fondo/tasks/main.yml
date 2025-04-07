@@ -1,0 +1,29 @@
+- name: Crear carpeta para fondos personalizados
+  file:
+    path: /usr/share/backgrounds/educaandos
+    state: directory
+    mode: "0755"
+
+- name: Descargar fondo de pantalla desde GitHub
+  get_url:
+    url: https://github.com/aosucas499/guadalinex/raw/main/isobuilder/eggs/educaandos_wallpaper.png
+    dest: /usr/share/backgrounds/educaandos/fondo.png
+    mode: "0644"
+
+- name: Crear archivo de configuración para fondo por defecto
+  copy:
+    dest: /etc/dconf/db/local.d/00-background
+    content: |
+      [org/gnome/desktop/background]
+      picture-uri='file:///usr/share/backgrounds/educaandos/fondo.png'
+      picture-uri-dark='file:///usr/share/backgrounds/educaandos/fondo.png'
+
+- name: Crear archivo de bloqueo de configuración del fondo
+  copy:
+    dest: /etc/dconf/db/local.d/locks/background
+    content: |
+      /org/gnome/desktop/background/picture-uri
+      /org/gnome/desktop/background/picture-uri-dark
+
+- name: Aplicar configuración de fondo de pantalla
+  command: dconf update

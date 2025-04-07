@@ -1,0 +1,5 @@
+- name: Configuración básica del portátil
+  hosts: localhost
+  become: yes
+  roles:
+    - fondo
